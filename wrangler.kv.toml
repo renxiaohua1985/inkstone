@@ -25,12 +25,15 @@ run_worker_first = [
 [[d1_databases]]
 binding = "DB"
 database_name = "inkstone-db"
+database_id = "0409ade5-a426-4948-9517-9c5773e9515c"
 
 [[kv_namespaces]]
 binding = "FILES_KV"
+id = "7823feddb3794996b4b7e6f03cec138b"
 
 [[kv_namespaces]]
 binding = "OAUTH_KV"
+id = "d4e8bff5c1ed4e58b9f57060509c3a71"
 
 [[durable_objects.bindings]]
 name = "SYNC_HUB"
