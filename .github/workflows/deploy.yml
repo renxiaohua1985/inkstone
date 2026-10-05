@@ -1,4 +1,4 @@
-name: Deploy Inkstone to Cloudflare
+name: Deploy Inkstone to Cloudflare KV
 
 on:
   push:
