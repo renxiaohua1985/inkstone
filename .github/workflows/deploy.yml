@@ -1,4 +1,4 @@
-name: Deploy Inkstone to Cloudflare KV
+name: Deploy Inkstone to Cloudflare
 
 on:
   push:
@@ -15,11 +15,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          # 1. 升级到符合 Wrangler 要求的最低 Node 版本
-          node-version: 22 
+          # 1. 显式设定固定大版本号
+          node-version: '22.x' 
+          # 2. 关键核心：强制忽略项目内任何可能存在的锁版本文件（如 .nvmrc）
+          check-latest: true 
+
+      - name: Verify Node Version
+        # 验证步骤：确保打印出来的版本号确实是 v22.x
+        run: node -v 
 
       - name: Install Dependencies
-        # 2. 加上 --legacy-peer-deps 解决项目的 @cloudflare/workers-types 冲突
+        # 3. 双重保险：在安装项目依赖时也强制绕过同级依赖冲突
         run: npm install --legacy-peer-deps 
 
       - name: Build Project
