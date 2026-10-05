@@ -1,0 +1,37 @@
+name: Deploy Inkstone to Cloudflare
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # 1. 显式锁定使用 Node 22 编译环境
+          node-version: 22
+          # 2. 强行忽略项目内可能存在的任何旧版本锁定文件（如 .nvmrc 或 package.json 里的旧版本声明）
+          check-latest: true 
+
+      - name: Install Dependencies
+        # 3. 安装依赖时添加参数，强行切断 workers-types 的 Peer 锁冲突
+        run: npm install --legacy-peer-deps
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        # 4. 必须升级至 v4 版本的 Action！旧版 v3 会强行把容器降级到老 Node 版本
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # 5. 这里调用项目配置好的脚本：如果是 KV 部署则填 run deploy:kv；若是标准 R2 部署则填 run deploy
+          command: run deploy:kv 
