@@ -33,7 +33,7 @@ jobs:
       # 默认运行 npm run deploy (R2 模式)。
       # 如果你需要切换为 KV 模式，请将下方的 command 改为: run deploy:kv
       - name: Deploy via Wrangler
-        uses: cloudflare/wrangle-action@v3
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
