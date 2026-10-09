@@ -29,12 +29,10 @@ jobs:
       - name: Build Application
         run: npm run build
 
-      # 5. 使用 Wrangler Action 执行部署与数据库迁移
-      # 默认运行 npm run deploy (R2 模式)。
-      # 如果你需要切换为 KV 模式，请将下方的 command 改为: run deploy:kv
+      # 5. 使用 Wrangler Action 执行部署与数据库迁移（使用 KV 配置文件）
       - name: Deploy via Wrangler
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: run deploy:kv
+          command: deploy -c wrangler.kv.toml  # 👈 修正为 Wrangler 官方原生部署命令
