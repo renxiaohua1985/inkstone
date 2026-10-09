@@ -25,12 +25,15 @@ run_worker_first = [
 [[d1_databases]]
 binding = "DB"
 database_name = "inkstone-db"
+database_id = "5ee6a91f-edaa-49a1-b364-2519e9dc0408" #
 
 [[kv_namespaces]]
 binding = "FILES_KV"
+id = "e5f2a1a9905b40e0a98188928a0e0aae"
 
 [[kv_namespaces]]
 binding = "OAUTH_KV"
+id = "87dc8a22e775418388619c1c0c0ee34e"
 
 [[durable_objects.bindings]]
 name = "SYNC_HUB"
@@ -57,6 +60,7 @@ APP_NAME = "Inkstone"
 [observability]
 enabled = true
 
-# 修复 Wrangler 无法识别 TypeScript 别名的问题
+# 显式告诉 Wrangler 的打包工具如何解析 @shared 别名
 [alias]
 "@shared" = "./src/shared"
+
