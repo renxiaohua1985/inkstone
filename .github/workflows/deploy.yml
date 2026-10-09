@@ -14,11 +14,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. 设置 Node.js 环境（Inkstone 推荐使用 Node 20 或更高版本）
+      # 2. 设置 Node.js 环境（Inkstone 推荐使用 Node 22 或更高版本）
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm' # 开启 npm 缓存加速后续构建
 
       # 3. 安装项目依赖
