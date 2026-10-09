@@ -56,3 +56,7 @@ APP_NAME = "Inkstone"
 
 [observability]
 enabled = true
+
+# 修复 Wrangler 无法识别 TypeScript 别名的问题
+[alias]
+"@shared" = "./src/shared"
